@@ -5,14 +5,17 @@ import { HomePage } from './home';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import { TimeLearnerEffects } from '../../effects/TimeLearner.effect';
+import { timelearnerReducer } from '../../reducers/TimeLearner.reducer';
+
 @NgModule({
   declarations: [
     HomePage,
   ],
   imports: [
     IonicPageModule.forChild(HomePage),
-    StoreModule.forFeature(),
-    EffectsModule.forFeature([])
+    StoreModule.forFeature('timelearner', timelearnerReducer),
+    EffectsModule.forFeature([TimeLearnerEffects])
   ],
 })
 export class HomePageModule {}

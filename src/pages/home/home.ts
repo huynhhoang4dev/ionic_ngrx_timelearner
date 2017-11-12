@@ -26,6 +26,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
 
+    this.store.dispatch( new actions.fetchQuestions() )
   }
 
   ionViewDidLoad() {

@@ -18,6 +18,6 @@ export class TimeLearnerEffects {
     constructor(private http: HttpClient, private action$: Actions) {}
     @Effect()
     fetchQuestions$: Observable<Action> = this.action$.ofType(TimeLearnerActions.TimeLearner_Get_Request)
-
+    
         
 }

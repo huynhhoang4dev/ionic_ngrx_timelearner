@@ -10,6 +10,10 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { MyApp } from './app.component';
 
+import { reducers } from '../reducers';
+
+//add effect into EffectModule if we need load in root level
+
 @NgModule({
   declarations: [
     MyApp
@@ -18,8 +22,8 @@ import { MyApp } from './app.component';
     BrowserModule,
     IonicModule.forRoot(MyApp),
 
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([])
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([]) 
   ],
   bootstrap: [IonicApp],
   entryComponents: [
