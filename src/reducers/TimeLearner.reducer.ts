@@ -23,12 +23,15 @@ export const initialState: State = timelearnerAdapter.getInitialState({
 //reducer
 export function timelearnerReducer(state: State = initialState,action: actions.TimeLearnerActions) {
     switch(action.type) {
-        case actions.TimeLearnerRequest:
-            return timelearnerAdapter.updateOne(action.payload.({isFetching: true, isSuccess: false}), state );
-        case actions.TimeLearnerFailure:
-            return timelearnerAdapter.addAll(action);
-        case actions.TimeLearnerSuccess:
-            return timelearnerAdapter.addAll(action);
+        case actions.Fetch_Questions:
+            return {...state, isFetching: true, isSuccess: false, data: null };
+
+        // case actions.TimeLearnerRequest:
+        //     return timelearnerAdapter.updateOne(action.payload.({isFetching: true, isSuccess: false}), state );
+        // case actions.TimeLearnerFailure:
+        //     return timelearnerAdapter.addAll(action);
+        // case actions.TimeLearnerSuccess:
+        //     return timelearnerAdapter.addAll(action);
         default:
             return state;
     }
