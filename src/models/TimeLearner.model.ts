@@ -3,7 +3,7 @@ export interface TimeLearnerModel {
     questions: Question[]
 }
 
-interface Question {
+export interface Question {
     time_do_display: string,
     options: string[]
 }

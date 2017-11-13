@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-
+    //this.store.select()
     this.store.dispatch( new actions.fetchQuestions() )
   }
 

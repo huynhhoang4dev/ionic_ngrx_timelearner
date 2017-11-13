@@ -20,26 +20,16 @@ export class fetchQuestionsSuccess implements Action {
     constructor(public payload: TimeLearnerModel) {}
 }
 
-// export const TimeLearner_Get_Request = '[TimeLearner] Get Request';
-// export const TimeLearner_Get_Failure = '[TimeLearner] Get Failure';
-// export const TimeLearner_Get_Success = '[TimeLearner] Get Success';
+export const Select_Option = '[Question] select Question';
 
-// export class TimeLearnerRequest implements Action {
-//     readonly type = TimeLearner_Get_Request;
-//     constructor() {}
-// }
+export class selectOption implements Action {
+    readonly type = Select_Option;
+    constructor(public selectedOption: string) {}
+}
 
-// export class TimeLearnerFailure implements Action {
-//     readonly type = TimeLearner_Get_Failure;
-//     constructor(public payload: any) {}
-// }
-
-// export class TimeLearnerSuccess implements Action {
-//     readonly type = TimeLearner_Get_Success;
-//     constructor(public payload: TimeLearnerModel) {}
-// }
 
 export type TimeLearnerActions
     = fetchQuestions
     | fetchQuestionsFailure
     | fetchQuestionsSuccess
+    | selectOption
