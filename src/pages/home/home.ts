@@ -25,12 +25,12 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    //this.store.select()
-    this.store.dispatch( new actions.fetchQuestions() )
+    //this.store.select('') //observe 
+    //this.store.dispatch( new actions.fetchQuestions() )
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
-  }
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad HomePage');
+  // }
 
 }

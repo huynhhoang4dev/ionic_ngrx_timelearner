@@ -7,7 +7,7 @@ export interface Question {
     time_do_display: string,
     options: string[]
 }
-// 
+//
 // export class QuestionLearner {
 //
 //   private score: number = 0;

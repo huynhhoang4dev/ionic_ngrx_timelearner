@@ -2,7 +2,7 @@ import * as actions from '../actions/TimeLearner.action';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
 
-import { TimeLearnerModel, Question } from '../models/TimeLearner.model';
+import { Question } from '../models/TimeLearner.model';
 
 
 export interface TimeLearner {
@@ -43,7 +43,7 @@ export function timelearnerReducer(state: State = initialState,action: actions.T
         case actions.Select_Option: {
             let selectedOption = action.payload.selectedOption;
             return summitAnswer(selectedOption, getQuestion(state.questions, state.currentQuestion))
-              ? {...state, state.currentQuestion++, state.score++}
+              ? {...state, currentQuestion: currentQuestion++, score: score++}
               : {...state}
         }
         default:
