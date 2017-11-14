@@ -15,7 +15,7 @@ import * as fromTimeLearner from '../reducers/TimeLearner.reducer'
   templateUrl: 'app.html',
 })
 export class MyApp{
-  rootPage:string;// = 'LoadingPage';
+  rootPage:string;// = 'HomePage';
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private store: Store<fromTimeLearner.State>) {
     platform.ready().then(() => {
