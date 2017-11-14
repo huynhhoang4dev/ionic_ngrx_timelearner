@@ -9,27 +9,17 @@ export interface TimeLearner {
     isFetching: boolean,
     isSuccess: boolean,
     version: string,
-    currentQuestion: Question,
-    currentOption: string,
     questions: Question[],
+    currentQuestion: number,
     score: number
 }
 
-function questionIterators(array: any) {
-    let nextIndex = 0;
-    return {
-        next: function(selectedOption: string) {
-            arguments.length == 0
-                ?   nextIndex < array.length 
-                    ? {value: array[nextIndex++], done: false}
-                    : {done: true}
-                :   {done: false}
-            
-        }
-    }
+function getQuestion(questions: Question[], currentQuestion: number): Question {
+  return questions[currentQuestion];
 }
-function next(selectedOption: string) {
 
+function summitAnswer(answer: string, question: Question): boolean {
+  return answer === question.time_do_display
 }
 
 //Entity Adapter
@@ -45,14 +35,17 @@ export const initialState: State = timelearnerAdapter.getInitialState({
 export function timelearnerReducer(state: State = initialState,action: actions.TimeLearnerActions) {
     switch(action.type) {
         case actions.Fetch_Questions:
-            return {...state, isFetching: true, isSuccess: false, data: null };
+            return {...state, isFetching: true, isSuccess: false };
         case actions.Fetch_Questions_Failure:
-            return {};
+            return {...state, isFetching: false, isSuccess: false};
         case actions.Fetch_Questions_Success:
-            return {};
+            return {...state, isFetching: false, isSuccess: true, version: action.payload.version, questions: action.payload.questions, currentQuestion: 0, score: 0};
         case actions.Select_Option: {
-            return {};
-        }        
+            let selectedOption = action.payload.selectedOption;
+            return summitAnswer(selectedOption, getQuestion(state.questions, state.currentQuestion))
+              ? {...state, state.currentQuestion++, state.score++}
+              : {...state}
+        }
         default:
             return state;
     }
@@ -67,4 +60,3 @@ export const getTimeLearnerSate = createFeatureSelector<State>('timelearner');
 //     selectAll,
 //     selectTotal
 // } = timelearnerAdapter.getSelectors(getTimeLearnerSate);
-
