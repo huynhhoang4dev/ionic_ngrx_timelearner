@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -11,8 +11,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
+import { Question } from '../../models/TimeLearner.model'
 import * as actions from '../../actions/TimeLearner.action';
-import * as fromTimeLearner from '../../reducers/TimeLearner.reducer';
+import * as fromRoot from '../../reducers';
 
 @IonicPage()
 @Component({
@@ -20,32 +21,69 @@ import * as fromTimeLearner from '../../reducers/TimeLearner.reducer';
   templateUrl: 'home.html',
 })
 export class HomePage implements OnInit {
+  score = 0;
+  currentIndexQuestion = 0;
+  currentQuestion: Question;
+  numQuestions = 10;
+  timeToDisplay: string = "12:00";
+  t1='1';
+  t2='2';
+  t3='3';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<fromTimeLearner.State>) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private store: Store<fromRoot.State>) {
+    
+
+  }
+  submit(t) {
+    //console.log(t)
+    this.store.dispatch(new actions.selectOption(t)); 
   }
 
   ngOnInit() {
-    //this.store.select('') //observe 
-    //this.store.dispatch( new actions.fetchQuestions() )
+    this.store.select(store => store.timelearner)
+    .subscribe(
+      res => {
+        console.log('OMG',res)
+        this.score = res.score;
+        this.currentIndexQuestion = res.currentQuestion + 1;
+        this.currentQuestion = res.questions[res.currentQuestion];
+        this.numQuestions = res.questions.length;
+        this.t1 = this.currentQuestion.options[0];
+        this.t2 = this.currentQuestion.options[1];
+        this.t3 = this.currentQuestion.options[2];
+        //this.timeToDisplay = this.currentQuestion.time_do_display;
+        console.log('zz')
+        console.log(this.currentQuestion.time_to_display);
+        this.timeToDisplay = this.currentQuestion.time_to_display;
+      }
+    )  
   }
 
   // ionViewDidLoad() {
   //   console.log('ionViewDidLoad HomePage');
   // }
   ngAfterViewInit(){
+
     
-        var canvas = document.getElementById("canvas");
-      
+
+      console.log('nah',this.timeToDisplay)
+    
+    //Draw UI
+        
+        //setInterval(drawClock, 1000);
+        //drawClock(this.timeToDisplay);
+        var canvas: any = document.getElementById("canvas"); 
         var ctx = canvas.getContext("2d");
         var radius = canvas.height / 2;
         ctx.translate(radius, radius);
         radius = radius * 0.90
-        setInterval(drawClock, 1000);
-    
-        function drawClock() {
+        drawClock(this.timeToDisplay);
+
+      
+        function drawClock(timeString) {
           drawFace(ctx, radius);
           drawNumbers(ctx, radius);
-          drawTime(ctx, radius);
+          drawTime(ctx, radius, timeString);
         }
     
         function drawFace(ctx, radius) {
@@ -85,12 +123,17 @@ export class HomePage implements OnInit {
           }
         }
     
-        function drawTime(ctx, radius){
-          var now = new Date();
-          var hour = now.getHours();
-          var minute = now.getMinutes();
-          var second = now.getSeconds();
-          //hour
+        function drawTime(ctx, radius, timeString){
+          console.log(timeString);
+          let h = timeString.substring(0,2);
+          let m = timeString.substring(3,6);
+          let i_h = parseInt(h);
+          let i_m = parseInt(m);
+          var hour = i_h; 
+          var minute = i_m;
+          var second = 0;
+
+
           hour=hour%12;
           hour=(hour*Math.PI/6)+
             (minute*Math.PI/(6*60))+
@@ -100,8 +143,8 @@ export class HomePage implements OnInit {
           minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
           drawHand(ctx, minute, radius*0.8, radius*0.07);
           // second
-          second=(second*Math.PI/30);
-          drawHand(ctx, second, radius*0.9, radius*0.02);
+          // second=(second*Math.PI/30);
+          // drawHand(ctx, second, radius*0.9, radius*0.02);
         }
     
         function drawHand(ctx, pos, length, width) {

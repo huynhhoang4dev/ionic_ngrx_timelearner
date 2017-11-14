@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 
-import { TimeLearnerAPI } from '../configs/TimeLearner.API';
+import { TimeLearnerAPI, localAPI } from '../configs/TimeLearner.API';
 
 import * as TimeLearnerActions from '../actions/TimeLearner.action';
 
@@ -21,12 +21,17 @@ export class TimeLearnerEffects {
     fetchQuestions$: Observable<Action> = this.action$
         .ofType(TimeLearnerActions.Fetch_Questions)
         .switchMap( action => 
-            this.http.get(TimeLearnerAPI)
-                .map(data => {
-                        console.log(data);
-                        return ({type: TimeLearnerActions.Fetch_Questions_Success, payload: data})
-                    }
-                )
-                .catch((error) => of({type: TimeLearnerActions.Fetch_Questions_Failure, error: error}))
+            {
+                console.log('fetchQuestions in Effects');
+                return this.http.get(localAPI)
+                    .map(data => {
+                        console.log('data is good');
+                        console.log(data.json())
+                        return ({type: TimeLearnerActions.Fetch_Questions_Success, payload: data.json()}) 
+                    }   
+                                            
+                    )
+                    .catch((error) => of({type: TimeLearnerActions.Fetch_Questions_Failure, error: error}))
+            }
         )
 }

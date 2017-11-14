@@ -4,7 +4,7 @@ export interface TimeLearnerModel {
 }
 
 export interface Question {
-    time_do_display: string,
+    time_to_display: string,
     options: string[]
 }
 //

@@ -12,7 +12,7 @@ export class fetchQuestions implements Action {
 
 export class fetchQuestionsFailure implements Action {
     readonly type = Fetch_Questions_Failure;
-    constructor(public error: any) {}
+    constructor(public payload: any) {}
 }
 
 export class fetchQuestionsSuccess implements Action {
@@ -24,7 +24,7 @@ export const Select_Option = '[Question] select Question';
 
 export class selectOption implements Action {
     readonly type = Select_Option;
-    constructor(public selectedOption: string) {}
+    constructor(public payload: string) {}
 }
 
 

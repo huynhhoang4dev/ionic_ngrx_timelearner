@@ -9,7 +9,7 @@ import { LoadingPage } from '../pages/loading/loading';
 
 import { Store } from '@ngrx/store';
 import * as actions from '../actions/TimeLearner.action';
-import * as fromTimeLearner from '../reducers/TimeLearner.reducer'
+import * as fromRoot from '../reducers';
 
 @Component({
   templateUrl: 'app.html',
@@ -17,13 +17,16 @@ import * as fromTimeLearner from '../reducers/TimeLearner.reducer'
 export class MyApp{
   rootPage:string;// = 'HomePage';
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private store: Store<fromTimeLearner.State>) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private store: Store<fromRoot.State>) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide(); 
+      
     });
+    console.log('constructor AppComponent')
+    
     //request Question
     this.store.dispatch(new actions.fetchQuestions());
     this.rootPage = 'LoadingPage';

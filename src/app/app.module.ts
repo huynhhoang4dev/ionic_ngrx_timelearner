@@ -12,7 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { MyApp } from './app.component';
 
 import { reducers } from '../reducers';
-
+import { TimeLearnerEffects } from '../effects/TimeLearner.effect';
 //add effect into EffectModule if we need load in root level
 
 @NgModule({
@@ -23,9 +23,9 @@ import { reducers } from '../reducers';
     HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
-
+    EffectsModule.forRoot([TimeLearnerEffects]), 
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([]) 
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [

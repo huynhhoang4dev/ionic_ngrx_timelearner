@@ -13,11 +13,13 @@
 </ion-header>
 
 
-<ion-content padding>
-    <code>src/pages/</code>
-    <div class="ion-canvas">
-        <canvas id="canvas" width="400" height="400" style="background-color:#333"></canvas>
-    </div>
-  
-</canvas>
+<ion-content padding>   
+  <ion-title>Score: {{score}}</ion-title>
+  <ion-title>Question: {{currentIndexQuestion}}/{{numQuestions}}</ion-title>
+  <canvas id="canvas" width="400" height="400" style="background-color:#333">
+  </canvas> 
+  <ion-title>What time is it ?</ion-title>
+  <button ion-button color="light" (click)="submit(t1)">{{t1}}</button>
+  <button ion-button color="light" (click)="submit(t2)">{{t2}}</button>
+  <button ion-button color="light" (click)="submit(t3)">{{t3}}</button>
 </ion-content>
